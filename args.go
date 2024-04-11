@@ -39,7 +39,7 @@ import (
 )
 
 const (
-	ssdDiskAnnotation            = "ssd.vm.kubevirt.io/ssd-patcher"
+	qemuArgsAnnotation           = "qemuargs.vm.kubevirt.io/args-patcher"
 	onDefineDomainLoggingMessage = "Hook's OnDefineDomain callback method has been called"
 	qemuv1NS                     = "http://libvirt.org/schemas/domain/qemu/1.0"
 )
@@ -52,7 +52,7 @@ func (s infoServer) Info(ctx context.Context, params *hooksInfo.InfoParams) (*ho
 	log.Log.Info("Hook's Info method has been called")
 
 	return &hooksInfo.InfoResult{
-		Name: "ssd",
+		Name: "args",
 		Versions: []string{
 			s.Version,
 		},
@@ -107,7 +107,7 @@ func onDefineDomain(vmiJSON []byte, domainXML []byte) ([]byte, error) {
 
 	annotations := vmiSpec.GetAnnotations()
 
-	if _, found := annotations[ssdDiskAnnotation]; !found {
+	if _, found := annotations[qemuArgsAnnotation]; !found {
 		log.Log.Info("SM BIOS hook sidecar was requested, but no attributes provided. Returning original domain spec")
 		return domainXML, nil
 	}
@@ -152,9 +152,9 @@ func onDefineDomain(vmiJSON []byte, domainXML []byte) ([]byte, error) {
 }
 
 func main() {
-	log.InitializeLogging("ssd-hook-sidecar")
+	log.InitializeLogging("qemu-args-hook-sidecar")
 
-	socketPath := filepath.Join(hooks.HookSocketsSharedDirectory, "ssd.sock")
+	socketPath := filepath.Join(hooks.HookSocketsSharedDirectory, "args.sock")
 	socket, err := net.Listen("unix", socketPath)
 	if err != nil {
 		log.Log.Reason(err).Errorf("Failed to initialized socket on path: %s", socket)
