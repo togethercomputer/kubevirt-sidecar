@@ -23,10 +23,10 @@ import (
 	"context"
 	"encoding/json"
 	"encoding/xml"
-	"fmt"
 	"net"
 	"os"
 	"path/filepath"
+	"strings"
 
 	"google.golang.org/grpc"
 	vmSchema "kubevirt.io/api/core/v1"
@@ -39,8 +39,8 @@ import (
 )
 
 const (
-	qemuArgsAnnotation           = "qemuargs.vm.kubevirt.io/args-patcher"
-	onDefineDomainLoggingMessage = "Hook's OnDefineDomain callback method has been called"
+	qemuArgsAnnotation           = "qemuargs.vm.kubevirt.io/args"
+	onDefineDomainLoggingMessage = "qemuargs hook called"
 	qemuv1NS                     = "http://libvirt.org/schemas/domain/qemu/1.0"
 )
 
@@ -108,7 +108,7 @@ func onDefineDomain(vmiJSON []byte, domainXML []byte) ([]byte, error) {
 	annotations := vmiSpec.GetAnnotations()
 
 	if _, found := annotations[qemuArgsAnnotation]; !found {
-		log.Log.Info("SM BIOS hook sidecar was requested, but no attributes provided. Returning original domain spec")
+		log.Log.Info("qemu args sidecar was requested, but no attributes provided. Doing nothing.")
 		return domainXML, nil
 	}
 
@@ -124,22 +124,16 @@ func onDefineDomain(vmiJSON []byte, domainXML []byte) ([]byte, error) {
 		domainSpec.QEMUCmd = &domainSchema.Commandline{}
 	}
 
-	// for all sata disks in the domain spec, append the arguments to set them as sata disks
-	for _, v := range domainSpec.Devices.Disks {
-		log.Log.Infof("%v", v.Target.Bus)
-		content, err := json.Marshal(v)
-		if err != nil {
-			return nil, nil
-		}
-		log.Log.Info(string(content))
-		if v.Target.Bus == vmSchema.DiskBusSATA {
-			domainSpec.QEMUCmd.QEMUArg = append(domainSpec.QEMUCmd.QEMUArg, domainSchema.Arg{Value: "-set"}, domainSchema.Arg{Value: fmt.Sprintf("device.ua-%s.rotation_rate=1", v.Alias.DeepCopy().GetName())})
-		}
+	inputs := strings.Fields(annotations[qemuArgsAnnotation])
+
+	for _, v := range inputs {
+		domainSpec.QEMUCmd.QEMUArg = append(domainSpec.QEMUCmd.QEMUArg, domainSchema.Arg{Value: v})
 	}
 
 	if len(domainSpec.QEMUCmd.QEMUArg) > 0 {
 		domainSpec.XmlNS = qemuv1NS
 	}
+
 	newDomainXML, err := xml.Marshal(domainSpec)
 	if err != nil {
 		log.Log.Reason(err).Errorf("Failed to marshal updated domain spec: %+v", domainSpec)
