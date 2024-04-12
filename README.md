@@ -1,19 +1,25 @@
-## ssd hook sidecar
+## kubevirt qemu arg appender sidecar
 
 Simple sidecar based on [kubevirt hook example.](kubevirt.io/kubevirt/cmd/example-hook-sidecar)
 
-The sidecar appends qemu args to append sata disks `rotation_rate=1`.
+The sidecar appends qemu args to the end of the qemu commanline in libvirt xml.
 
-This is needed for some specific use cases where we wish the sata virtual disks to appear as `ssd` to the guest.
+That is it.
 
-Ensure kubevirt feature gate `Sidecar` is enabled.
+Ensure kubevirt feature gate `Sidecar` is enabled prior to use.
+
+e.g. something like so if not:
+
+```sh
+[ ! kubectl get kubevirt -n harvester-system -o json | jq -r '.items[].spec.configuration.developerConfiguration.featureGates[]' | grep Sidecar ] && kubectl patch kubevirt -n harvester-system --type "json" -p '[{"op":"add","path":"/spec/configuration/developerConfiguration/FeatureGates/-","value":"Sidecar"}]'
+```
 
 Annotations needed to make this work are:
 
 ```yaml
 annotations:
   # Request the hook sidecar
-  hooks.kubevirt.io/hookSidecars: '[{"image": "docker.io/gmehta3/ssd:dev"}]'
-  # Annotation to trigger ssd arguments
-  ssd.vm.kubevirt.io/ssd-patcher: "true"
+  hooks.kubevirt.io/hookSidecars: '[{"image": "ghcr.io/mitchty/kubevirt-sidecar:main"}]'
+  # Annotation with space delimited string of args to be added
+  qemuargs.vm.kubevirt.io/args: "-fw_cfg name=opt/ovmf/X-PciMmio64Mb,string=65536"
 ```
