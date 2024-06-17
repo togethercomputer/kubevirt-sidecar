@@ -17,9 +17,16 @@ e.g. something like so if not:
 Annotations needed to make this work are:
 
 ```yaml
-annotations:
-  # Request the hook sidecar
-  hooks.kubevirt.io/hookSidecars: '[{"image": "ghcr.io/mitchty/kubevirt-sidecar:main"}]'
-  # Annotation with space delimited string of args to be added
-  qemuargs.vm.kubevirt.io/args: "-fw_cfg name=opt/ovmf/X-PciMmio64Mb,string=65536"
+apiVersion: kubevirt.io/v1
+kind: VirtualMachine
+...
+spec:
+  template:
+    metadata:
+      annotations:
+        harvesterhci.io/sshNames: '[]'
+        # Request the hook sidecar
+        hooks.kubevirt.io/hookSidecars: '[{"image": "ghcr.io/mitchty/kubevirt-sidecar:main"}]'
+        # Annotation with space delimited string of args to be added
+        qemuargs.vm.kubevirt.io/args: -fw_cfg name=opt/ovmf/X-PciMmio64Mb,string=65536
 ```
