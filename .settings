@@ -1,0 +1,3 @@
+URL=public.ecr.aws/k6t4m3l7/
+NAME=kubevirt-sidecar
+VERSION=1.0.0
