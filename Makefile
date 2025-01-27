@@ -4,7 +4,7 @@ include .settings
 # Build the container image
 .PHONY: build
 build:
-	docker build -t ${URL}${NAME}:v${VERSION} -t ${URL}${NAME}:latest .
+	docker build --platform linux/amd64 -t ${URL}${NAME}:v${VERSION} -t ${URL}${NAME}:latest .
 
 # Push the container image
 .PHONY: push
