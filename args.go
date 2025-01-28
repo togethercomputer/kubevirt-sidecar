@@ -21,6 +21,7 @@ package main
 
 import (
 	"context"
+	"encoding/base64"
 	"encoding/json"
 	"encoding/xml"
 	"net"
@@ -98,11 +99,20 @@ func (s v1alpha1Server) OnDefineDomain(ctx context.Context, params *hooksV1alpha
 func onDefineDomain(vmiJSON []byte, domainXML []byte) ([]byte, error) {
 	log.Log.Info(onDefineDomainLoggingMessage)
 
+	// Print domain xml as base64
+	log.Log.Infof("(pre) domain xml: %v", string(base64.StdEncoding.EncodeToString(domainXML)))
+
 	vmiSpec := vmSchema.VirtualMachineInstance{}
 	err := json.Unmarshal(vmiJSON, &vmiSpec)
 	if err != nil {
 		log.Log.Reason(err).Errorf("Failed to unmarshal given VMI spec: %s", vmiJSON)
 		panic(err)
+	}
+
+	// Lets grab the filesystems and log them
+	fs := vmiSpec.Spec.Domain.Devices.Filesystems
+	for _, fs := range fs {
+		log.Log.Infof("filesystem: %v", fs.Name)
 	}
 
 	annotations := vmiSpec.GetAnnotations()
@@ -139,6 +149,9 @@ func onDefineDomain(vmiJSON []byte, domainXML []byte) ([]byte, error) {
 		log.Log.Reason(err).Errorf("Failed to marshal updated domain spec: %+v", domainSpec)
 		panic(err)
 	}
+
+	// Print domain xml as base64
+	log.Log.Infof("(post) domain xml: %v", string(base64.StdEncoding.EncodeToString(newDomainXML)))
 
 	log.Log.Info("Successfully updated original domain spec with requested disk attributes")
 
