@@ -29,8 +29,7 @@ import (
 	"path/filepath"
 	"strings"
 
-	domainSchema "github.com/togethercomputer/kubevirt-sidecar/pkg/schema"
-
+	"github.com/togethercomputer/kubevirt-sidecar/pkg/schema"
 	"google.golang.org/grpc"
 	vmSchema "kubevirt.io/api/core/v1"
 	"kubevirt.io/client-go/log"
@@ -124,7 +123,7 @@ func onDefineDomain(vmiJSON []byte, domainXML []byte) ([]byte, error) {
 	}
 
 	log.Log.Infof("domain xml: %v", string(domainXML))
-	domainSpec := domainSchema.DomainSpec{}
+	domainSpec := schema.DomainSpec{}
 	err = xml.Unmarshal(domainXML, &domainSpec)
 	if err != nil {
 		log.Log.Reason(err).Errorf("Failed to unmarshal given domain spec: %s", domainXML)
@@ -132,13 +131,13 @@ func onDefineDomain(vmiJSON []byte, domainXML []byte) ([]byte, error) {
 	}
 
 	if domainSpec.QEMUCmd == nil {
-		domainSpec.QEMUCmd = &domainSchema.Commandline{}
+		domainSpec.QEMUCmd = &schema.Commandline{}
 	}
 
 	inputs := strings.Fields(annotations[qemuArgsAnnotation])
 
 	for _, v := range inputs {
-		domainSpec.QEMUCmd.QEMUArg = append(domainSpec.QEMUCmd.QEMUArg, domainSchema.Arg{Value: v})
+		domainSpec.QEMUCmd.QEMUArg = append(domainSpec.QEMUCmd.QEMUArg, schema.Arg{Value: v})
 	}
 
 	if len(domainSpec.QEMUCmd.QEMUArg) > 0 {
