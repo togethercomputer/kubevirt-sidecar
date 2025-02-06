@@ -1,4 +1,4 @@
-module github.com/harvester/kubevirt-sidecar
+module github.com/togethercomputer/kubevirt-sidecar
 
 go 1.23.0
 

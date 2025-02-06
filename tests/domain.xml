@@ -1,0 +1,396 @@
+<?xml version="1.0"?>
+<domain xmlns:qemu="http://libvirt.org/schemas/domain/qemu/1.0" type="kvm">
+  <name>vast-test-2sqk5_vast-test-2sqk5-dp-74d8j-bhnjw</name>
+  <memory unit="b">1099511627776</memory>
+  <memoryBacking>
+    <hugepages>
+      <page size="1073741824" unit="b" nodeset="0"/>
+      <page size="1073741824" unit="b" nodeset="1"/>
+    </hugepages>
+    <source type="memfd"/>
+    <access mode="shared"/>
+    <allocation mode="immediate"/>
+  </memoryBacking>
+  <os>
+    <type arch="x86_64" machine="q35">hvm</type>
+    <smbios mode="sysinfo"/>
+    <loader readonly="yes" secure="no" type="pflash">/usr/share/OVMF/OVMF_CODE.secboot.fd</loader>
+    <nvram template="/usr/share/OVMF/OVMF_VARS.fd">/var/run/kubevirt-private/libvirt/qemu/nvram/vast-test-2sqk5-dp-74d8j-bhnjw_VARS.fd</nvram>
+  </os>
+  <sysinfo type="smbios">
+    <system>
+      <entry name="uuid">23ba5883-da98-5fb1-b1b9-228dd196c03e</entry>
+      <entry name="manufacturer">KubeVirt</entry>
+      <entry name="family">KubeVirt</entry>
+      <entry name="product">None</entry>
+      <entry name="sku"/>
+      <entry name="version"/>
+    </system>
+    <bios/>
+    <baseBoard/>
+    <chassis/>
+  </sysinfo>
+  <devices>
+    <interface type="ethernet">
+      <source/>
+      <target dev="tap0" managed="no"/>
+      <model type="virtio-non-transitional"/>
+      <mac address="fe:5c:de:7b:a1:28"/>
+      <mtu size="1450"/>
+      <alias name="ua-default"/>
+      <driver name="vhost" queues="128"/>
+      <rom enabled="no"/>
+    </interface>
+    <channel type="unix">
+      <target name="org.qemu.guest_agent.0" type="virtio"/>
+    </channel>
+    <hostdev type="pci" managed="no">
+      <source>
+        <address type="pci" domain="0x0000" bus="0x44" slot="0x00" function="0x0"/>
+      </source>
+      <alias name="ua-gpu-gpu1"/>
+    </hostdev>
+    <hostdev type="pci" managed="no">
+      <source>
+        <address type="pci" domain="0x0000" bus="0x86" slot="0x00" function="0x0"/>
+      </source>
+      <alias name="ua-gpu-gpu2"/>
+    </hostdev>
+    <hostdev type="pci" managed="no">
+      <source>
+        <address type="pci" domain="0x0000" bus="0x87" slot="0x00" function="0x0"/>
+      </source>
+      <alias name="ua-gpu-gpu3"/>
+    </hostdev>
+    <hostdev type="pci" managed="no">
+      <source>
+        <address type="pci" domain="0x0000" bus="0xb9" slot="0x00" function="0x0"/>
+      </source>
+      <alias name="ua-gpu-gpu4"/>
+    </hostdev>
+    <hostdev type="pci" managed="no">
+      <source>
+        <address type="pci" domain="0x0000" bus="0xbc" slot="0x00" function="0x0"/>
+      </source>
+      <alias name="ua-gpu-gpu5"/>
+    </hostdev>
+    <hostdev type="pci" managed="no">
+      <source>
+        <address type="pci" domain="0x0000" bus="0x0f" slot="0x00" function="0x0"/>
+      </source>
+      <alias name="ua-gpu-gpu6"/>
+    </hostdev>
+    <hostdev type="pci" managed="no">
+      <source>
+        <address type="pci" domain="0x0000" bus="0x10" slot="0x00" function="0x0"/>
+      </source>
+      <alias name="ua-gpu-gpu7"/>
+    </hostdev>
+    <hostdev type="pci" managed="no">
+      <source>
+        <address type="pci" domain="0x0000" bus="0x41" slot="0x00" function="0x0"/>
+      </source>
+      <alias name="ua-gpu-gpu8"/>
+    </hostdev>
+    <hostdev type="pci" managed="no">
+      <source>
+        <address type="pci" domain="0x0000" bus="0x03" slot="0x00" function="0x0"/>
+      </source>
+      <alias name="ua-gpu-nvswitch1"/>
+    </hostdev>
+    <hostdev type="pci" managed="no">
+      <source>
+        <address type="pci" domain="0x0000" bus="0x04" slot="0x00" function="0x0"/>
+      </source>
+      <alias name="ua-gpu-nvswitch2"/>
+    </hostdev>
+    <hostdev type="pci" managed="no">
+      <source>
+        <address type="pci" domain="0x0000" bus="0x05" slot="0x00" function="0x0"/>
+      </source>
+      <alias name="ua-gpu-nvswitch3"/>
+    </hostdev>
+    <hostdev type="pci" managed="no">
+      <source>
+        <address type="pci" domain="0x0000" bus="0x06" slot="0x00" function="0x0"/>
+      </source>
+      <alias name="ua-gpu-nvswitch4"/>
+    </hostdev>
+    <hostdev type="pci" managed="no">
+      <source>
+        <address type="pci" domain="0x0000" bus="0xb3" slot="0x00" function="0x3"/>
+      </source>
+      <alias name="ua-sriov-mlnx_connectx_7_dp_eth-1"/>
+    </hostdev>
+    <hostdev type="pci" managed="no">
+      <source>
+        <address type="pci" domain="0x0000" bus="0x37" slot="0x00" function="0x2"/>
+      </source>
+      <alias name="ua-sriov-mlnx_connectx_7_dp_eth-2"/>
+    </hostdev>
+    <hostdev type="pci" managed="no">
+      <source>
+        <address type="pci" domain="0x0000" bus="0x37" slot="0x00" function="0x3"/>
+      </source>
+      <alias name="ua-sriov-mlnx_connectx_7_dp_eth-3"/>
+    </hostdev>
+    <hostdev type="pci" managed="no">
+      <source>
+        <address type="pci" domain="0x0000" bus="0xb3" slot="0x00" function="0x2"/>
+      </source>
+      <alias name="ua-sriov-mlnx_connectx_7_dp_eth-4"/>
+    </hostdev>
+    <hostdev type="pci" managed="no">
+      <source>
+        <address type="pci" domain="0x0000" bus="0x18" slot="0x00" function="0x1"/>
+      </source>
+      <alias name="ua-sriov-mlnx_connectx_7_dp_ib-1"/>
+    </hostdev>
+    <hostdev type="pci" managed="no">
+      <source>
+        <address type="pci" domain="0x0000" bus="0x47" slot="0x00" function="0x1"/>
+      </source>
+      <alias name="ua-sriov-mlnx_connectx_7_dp_ib-2"/>
+    </hostdev>
+    <hostdev type="pci" managed="no">
+      <source>
+        <address type="pci" domain="0x0000" bus="0x4a" slot="0x00" function="0x1"/>
+      </source>
+      <alias name="ua-sriov-mlnx_connectx_7_dp_ib-3"/>
+    </hostdev>
+    <hostdev type="pci" managed="no">
+      <source>
+        <address type="pci" domain="0x0000" bus="0x8c" slot="0x00" function="0x1"/>
+      </source>
+      <alias name="ua-sriov-mlnx_connectx_7_dp_ib-4"/>
+    </hostdev>
+    <hostdev type="pci" managed="no">
+      <source>
+        <address type="pci" domain="0x0000" bus="0x8f" slot="0x00" function="0x1"/>
+      </source>
+      <alias name="ua-sriov-mlnx_connectx_7_dp_ib-5"/>
+    </hostdev>
+    <hostdev type="pci" managed="no">
+      <source>
+        <address type="pci" domain="0x0000" bus="0xbf" slot="0x00" function="0x1"/>
+      </source>
+      <alias name="ua-sriov-mlnx_connectx_7_dp_ib-6"/>
+    </hostdev>
+    <hostdev type="pci" managed="no">
+      <source>
+        <address type="pci" domain="0x0000" bus="0xc2" slot="0x00" function="0x1"/>
+      </source>
+      <alias name="ua-sriov-mlnx_connectx_7_dp_ib-7"/>
+    </hostdev>
+    <hostdev type="pci" managed="no">
+      <source>
+        <address type="pci" domain="0x0000" bus="0x15" slot="0x00" function="0x1"/>
+      </source>
+      <alias name="ua-sriov-mlnx_connectx_7_dp_ib-8"/>
+    </hostdev>
+    <controller type="usb" index="0" model="none"/>
+    <controller type="scsi" index="0" model="virtio-non-transitional"/>
+    <controller type="virtio-serial" index="0" model="virtio-non-transitional"/>
+    <memballoon model="none"/>
+    <disk device="disk" type="file" model="virtio-non-transitional">
+      <source file="/var/run/kubevirt-private/vmi-disks/containervolume/disk.img"/>
+      <target bus="virtio" dev="vda"/>
+      <driver cache="none" error_policy="stop" name="qemu" type="raw" iothread="2" queues="128" discard="unmap"/>
+      <alias name="ua-containervolume"/>
+      <filesystemOverhead>0.055</filesystemOverhead>
+      <capacity>107374182400</capacity>
+      <expandDisksEnabled>true</expandDisksEnabled>
+    </disk>
+    <disk device="disk" type="file" model="virtio-non-transitional">
+      <source file="/var/run/kubevirt-private/vmi-disks/scratch/disk.img"/>
+      <target bus="virtio" dev="vdb"/>
+      <driver cache="none" error_policy="stop" name="qemu" type="raw" iothread="3" queues="128" discard="unmap"/>
+      <alias name="ua-scratch"/>
+      <filesystemOverhead>0.055</filesystemOverhead>
+      <capacity>3298534883328</capacity>
+      <expandDisksEnabled>true</expandDisksEnabled>
+    </disk>
+    <disk device="disk" type="file" model="virtio-non-transitional">
+      <source file="/var/run/kubevirt-ephemeral-disks/cloud-init-data/vast-test-2sqk5/vast-test-2sqk5-dp-74d8j-bhnjw/configdrive.iso"/>
+      <target bus="virtio" dev="vdc"/>
+      <driver cache="none" error_policy="stop" name="qemu" type="raw" iothread="1" queues="128" discard="unmap"/>
+      <alias name="ua-cloudinitvolume"/>
+    </disk>
+    <serial type="unix">
+      <target port="0"/>
+      <source mode="bind" path="/var/run/kubevirt-private/bcd8a701-24c4-4001-a121-0aee64f0aec3/virt-serial0"/>
+    </serial>
+    <console type="pty">
+      <target type="serial" port="0"/>
+    </console>
+    <rng model="virtio-non-transitional">
+      <backend model="random">/dev/urandom</backend>
+    </rng>
+    <filesystem type="mount" accessMode="passthrough">
+      <source dir="" socket="/var/run/kubevirt/virtiofs-containers/data.sock"/>
+      <target dir="data"/>
+      <driver type="virtiofs" queue="1024"/>
+    </filesystem>
+  </devices>
+  <qemu:commandline>
+    <qemu:arg value="-fw_cfg"/>
+    <qemu:arg value="name=opt/ovmf/X-PciMmio64Mb,string=2097152"/>
+  </qemu:commandline>
+  <metadata>
+    <kubevirt xmlns="http://kubevirt.io">
+      <uid/>
+    </kubevirt>
+  </metadata>
+  <features>
+    <acpi/>
+    <kvm>
+      <hint-dedicated state="on"/>
+    </kvm>
+  </features>
+  <cpu mode="host-passthrough">
+    <topology sockets="1" cores="128" threads="1"/>
+    <numa>
+      <cell id="0" cpus="0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16" memory="549755813888" unit="b"/>
+      <cell id="1" cpus="17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50,51,52,53,54,55,56,57,58,59,60,61,62,63,64,65,66,67,68,69,70,71,72,73,74,75,76,77,78,79,80,81,82,83,84,85,86,87,88,89,90,91,92,93,94,95,96,97,98,99,100,101,102,103,104,105,106,107,108,109,110,111,112,113,114,115,116,117,118,119,120,121,122,123,124,125,126,127" memory="549755813888" unit="b"/>
+    </numa>
+  </cpu>
+  <vcpu placement="static">128</vcpu>
+  <cputune>
+    <vcpupin vcpu="0" cpuset="16"/>
+    <vcpupin vcpu="1" cpuset="128"/>
+    <vcpupin vcpu="2" cpuset="17"/>
+    <vcpupin vcpu="3" cpuset="129"/>
+    <vcpupin vcpu="4" cpuset="18"/>
+    <vcpupin vcpu="5" cpuset="130"/>
+    <vcpupin vcpu="6" cpuset="19"/>
+    <vcpupin vcpu="7" cpuset="131"/>
+    <vcpupin vcpu="8" cpuset="20"/>
+    <vcpupin vcpu="9" cpuset="132"/>
+    <vcpupin vcpu="10" cpuset="21"/>
+    <vcpupin vcpu="11" cpuset="133"/>
+    <vcpupin vcpu="12" cpuset="22"/>
+    <vcpupin vcpu="13" cpuset="134"/>
+    <vcpupin vcpu="14" cpuset="23"/>
+    <vcpupin vcpu="15" cpuset="135"/>
+    <vcpupin vcpu="16" cpuset="24"/>
+    <vcpupin vcpu="17" cpuset="56"/>
+    <vcpupin vcpu="18" cpuset="168"/>
+    <vcpupin vcpu="19" cpuset="57"/>
+    <vcpupin vcpu="20" cpuset="169"/>
+    <vcpupin vcpu="21" cpuset="58"/>
+    <vcpupin vcpu="22" cpuset="170"/>
+    <vcpupin vcpu="23" cpuset="59"/>
+    <vcpupin vcpu="24" cpuset="171"/>
+    <vcpupin vcpu="25" cpuset="60"/>
+    <vcpupin vcpu="26" cpuset="172"/>
+    <vcpupin vcpu="27" cpuset="61"/>
+    <vcpupin vcpu="28" cpuset="173"/>
+    <vcpupin vcpu="29" cpuset="62"/>
+    <vcpupin vcpu="30" cpuset="174"/>
+    <vcpupin vcpu="31" cpuset="63"/>
+    <vcpupin vcpu="32" cpuset="175"/>
+    <vcpupin vcpu="33" cpuset="64"/>
+    <vcpupin vcpu="34" cpuset="176"/>
+    <vcpupin vcpu="35" cpuset="65"/>
+    <vcpupin vcpu="36" cpuset="177"/>
+    <vcpupin vcpu="37" cpuset="66"/>
+    <vcpupin vcpu="38" cpuset="178"/>
+    <vcpupin vcpu="39" cpuset="67"/>
+    <vcpupin vcpu="40" cpuset="179"/>
+    <vcpupin vcpu="41" cpuset="68"/>
+    <vcpupin vcpu="42" cpuset="180"/>
+    <vcpupin vcpu="43" cpuset="69"/>
+    <vcpupin vcpu="44" cpuset="181"/>
+    <vcpupin vcpu="45" cpuset="70"/>
+    <vcpupin vcpu="46" cpuset="182"/>
+    <vcpupin vcpu="47" cpuset="71"/>
+    <vcpupin vcpu="48" cpuset="183"/>
+    <vcpupin vcpu="49" cpuset="72"/>
+    <vcpupin vcpu="50" cpuset="184"/>
+    <vcpupin vcpu="51" cpuset="73"/>
+    <vcpupin vcpu="52" cpuset="185"/>
+    <vcpupin vcpu="53" cpuset="74"/>
+    <vcpupin vcpu="54" cpuset="186"/>
+    <vcpupin vcpu="55" cpuset="75"/>
+    <vcpupin vcpu="56" cpuset="187"/>
+    <vcpupin vcpu="57" cpuset="76"/>
+    <vcpupin vcpu="58" cpuset="188"/>
+    <vcpupin vcpu="59" cpuset="77"/>
+    <vcpupin vcpu="60" cpuset="189"/>
+    <vcpupin vcpu="61" cpuset="78"/>
+    <vcpupin vcpu="62" cpuset="190"/>
+    <vcpupin vcpu="63" cpuset="79"/>
+    <vcpupin vcpu="64" cpuset="191"/>
+    <vcpupin vcpu="65" cpuset="80"/>
+    <vcpupin vcpu="66" cpuset="192"/>
+    <vcpupin vcpu="67" cpuset="81"/>
+    <vcpupin vcpu="68" cpuset="193"/>
+    <vcpupin vcpu="69" cpuset="82"/>
+    <vcpupin vcpu="70" cpuset="194"/>
+    <vcpupin vcpu="71" cpuset="83"/>
+    <vcpupin vcpu="72" cpuset="195"/>
+    <vcpupin vcpu="73" cpuset="84"/>
+    <vcpupin vcpu="74" cpuset="196"/>
+    <vcpupin vcpu="75" cpuset="85"/>
+    <vcpupin vcpu="76" cpuset="197"/>
+    <vcpupin vcpu="77" cpuset="86"/>
+    <vcpupin vcpu="78" cpuset="198"/>
+    <vcpupin vcpu="79" cpuset="87"/>
+    <vcpupin vcpu="80" cpuset="199"/>
+    <vcpupin vcpu="81" cpuset="88"/>
+    <vcpupin vcpu="82" cpuset="200"/>
+    <vcpupin vcpu="83" cpuset="89"/>
+    <vcpupin vcpu="84" cpuset="201"/>
+    <vcpupin vcpu="85" cpuset="90"/>
+    <vcpupin vcpu="86" cpuset="202"/>
+    <vcpupin vcpu="87" cpuset="91"/>
+    <vcpupin vcpu="88" cpuset="203"/>
+    <vcpupin vcpu="89" cpuset="92"/>
+    <vcpupin vcpu="90" cpuset="204"/>
+    <vcpupin vcpu="91" cpuset="93"/>
+    <vcpupin vcpu="92" cpuset="205"/>
+    <vcpupin vcpu="93" cpuset="94"/>
+    <vcpupin vcpu="94" cpuset="206"/>
+    <vcpupin vcpu="95" cpuset="95"/>
+    <vcpupin vcpu="96" cpuset="207"/>
+    <vcpupin vcpu="97" cpuset="96"/>
+    <vcpupin vcpu="98" cpuset="208"/>
+    <vcpupin vcpu="99" cpuset="97"/>
+    <vcpupin vcpu="100" cpuset="209"/>
+    <vcpupin vcpu="101" cpuset="98"/>
+    <vcpupin vcpu="102" cpuset="210"/>
+    <vcpupin vcpu="103" cpuset="99"/>
+    <vcpupin vcpu="104" cpuset="211"/>
+    <vcpupin vcpu="105" cpuset="100"/>
+    <vcpupin vcpu="106" cpuset="212"/>
+    <vcpupin vcpu="107" cpuset="101"/>
+    <vcpupin vcpu="108" cpuset="213"/>
+    <vcpupin vcpu="109" cpuset="102"/>
+    <vcpupin vcpu="110" cpuset="214"/>
+    <vcpupin vcpu="111" cpuset="103"/>
+    <vcpupin vcpu="112" cpuset="215"/>
+    <vcpupin vcpu="113" cpuset="104"/>
+    <vcpupin vcpu="114" cpuset="216"/>
+    <vcpupin vcpu="115" cpuset="105"/>
+    <vcpupin vcpu="116" cpuset="217"/>
+    <vcpupin vcpu="117" cpuset="106"/>
+    <vcpupin vcpu="118" cpuset="218"/>
+    <vcpupin vcpu="119" cpuset="107"/>
+    <vcpupin vcpu="120" cpuset="219"/>
+    <vcpupin vcpu="121" cpuset="108"/>
+    <vcpupin vcpu="122" cpuset="220"/>
+    <vcpupin vcpu="123" cpuset="109"/>
+    <vcpupin vcpu="124" cpuset="221"/>
+    <vcpupin vcpu="125" cpuset="110"/>
+    <vcpupin vcpu="126" cpuset="222"/>
+    <vcpupin vcpu="127" cpuset="111"/>
+    <iothreadpin iothread="1" cpuset="223"/>
+    <emulatorpin cpuset="223"/>
+  </cputune>
+  <numatune>
+    <memory mode="strict" nodeset="0,1"/>
+    <memnode cellid="0" mode="strict" nodeset="0"/>
+    <memnode cellid="1" mode="strict" nodeset="1"/>
+  </numatune>
+  <iothreads>3</iothreads>
+</domain>

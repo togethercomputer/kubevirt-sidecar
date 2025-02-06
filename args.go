@@ -29,6 +29,8 @@ import (
 	"path/filepath"
 	"strings"
 
+	domainSchema "github.com/togethercomputer/kubevirt-sidecar/pkg/schema"
+
 	"google.golang.org/grpc"
 	vmSchema "kubevirt.io/api/core/v1"
 	"kubevirt.io/client-go/log"
@@ -36,7 +38,6 @@ import (
 	hooksInfo "kubevirt.io/kubevirt/pkg/hooks/info"
 	hooksV1alpha1 "kubevirt.io/kubevirt/pkg/hooks/v1alpha1"
 	hooksV1alpha2 "kubevirt.io/kubevirt/pkg/hooks/v1alpha2"
-	domainSchema "kubevirt.io/kubevirt/pkg/virt-launcher/virtwrap/api"
 )
 
 const (
@@ -143,6 +144,18 @@ func onDefineDomain(vmiJSON []byte, domainXML []byte) ([]byte, error) {
 	if len(domainSpec.QEMUCmd.QEMUArg) > 0 {
 		domainSpec.XmlNS = qemuv1NS
 	}
+
+	fsDevices := domainSpec.Devices.Filesystems
+	for _, fsDevice := range fsDevices {
+		if fsDevice.Driver.Type == "virtiofs" {
+			targetDir := fsDevice.Target.Dir
+			log.Log.Infof("Adding cache-size=2G to virtiofs filesystem with tag: %v", targetDir)
+			fsDevice.Driver.Queue = "1024"
+			fsDevice.Driver.CacheSize = "2G"
+		}
+	}
+
+	domainSpec.Devices.Filesystems = fsDevices
 
 	newDomainXML, err := xml.Marshal(domainSpec)
 	if err != nil {
